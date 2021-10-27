@@ -1,0 +1,93 @@
+#include <stdio.h>
+
+//versão 1
+int fibonacci(int n){
+  int fib1 = 1;
+  int fib2 = 1;
+  int soma;
+
+  for(int i = 3; i <= n; i = i + 1){
+    soma = fib1 + fib2;
+    fib1 = fib2;
+    fib2 = soma;
+  }
+  return fib2;
+}
+
+//versão 2
+int fibonacci2(int n){
+  if (n == 1) return 1;
+  else{
+    if (n == 2) return 2;
+    else{
+    return fibonacci2(n - 1) + fibonacci2(n - 2);
+    }
+  }
+}
+
+//Recursivo
+int fibonacci3(int n){
+  int fib;
+  if(n == 1){
+    //printf("\nfib(1): %d", fib);
+    return 1;
+
+  }
+  if(n == 2){
+    //printf("\nfib(2): %d", fib);
+    return 1;
+
+  }else{
+    fib = fibonacci3(n-1)+fibonacci3(n-2);
+    //printf("\nfib(%d): %d",n,fib);
+  }
+
+  return fib;
+
+}
+
+//versão Top Down
+int save[100];
+int fibonacci4(int n){
+  int fib;
+
+  if(save[n]){
+    return save[n];
+  }else if(n <= 2){
+    fib = 1;
+    //printf("\nfib(%d): 1", n);
+
+  }else{
+    fib = fibonacci4(n-1)+fibonacci4(n-2);
+  }
+  save[n] = fib;
+  printf("\nfib(%d): %d",n,fib);
+  return fib;
+}
+
+//fibonacci bottom-up
+int fibonacciBU(int n){
+  int fib[n+1], i;
+  fib[0] = 0;
+  fib[1] = 1;
+
+  for(i = 2; i <= n; i++){
+    
+    fib[i] = fib[i-1]+fib[i-2];
+  }
+  return fib[n];
+}
+
+int main(void) {
+
+  int n;
+    scanf("%d",&n);
+
+    //if n == 0 or n == 1 the result is n
+    if(n <= 1)
+        printf("Fib(%d) = %d\n",n,n);
+    else
+        printf("Fib(%d) = %d\n",n,fibonacciBU(n));
+
+    return 0;
+}
